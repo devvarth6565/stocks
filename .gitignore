@@ -1,0 +1,13 @@
+# Node.js dependencies
+**/node_modules/
+
+# Build outputs
+**/build/
+**/dist/
+
+# Env files
+**/.env
+
+# OS files
+.DS_Store
+Thumbs.db
