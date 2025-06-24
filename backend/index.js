@@ -12,7 +12,13 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const authRoute = require("./Routes/AuthRoute");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:3001"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(bodyParser.json());
 
 // app.get("/addHoldings",async (req, res) => {
@@ -209,14 +215,6 @@ app.post("/newOrder", async (req, res) => {
     res.send("Order saved!");
 
   });
-
-  app.use(
-    cors({
-      origin: ["http://localhost:3002"],
-      methods: ["GET", "POST", "PUT", "DELETE"],
-      credentials: true,
-    })
-  );
 
     app.use(cookieParser());
     app.use(express.json());

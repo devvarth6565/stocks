@@ -1,15 +1,25 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import { useAuth } from "./GeneralContext";
 function Navbar() {
+  const { isLoggedIn, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Optionally, call your backend to clear cookies/session
+    logout();
+    navigate("/signup");
+  };
+
   return (
   
-      <nav class="navbar navbar-expand-lg " style={{backgroundColor:"#fff"}}>
-        <div class="container p-2">
-          <Link class="navbar-brand" to="/">
+      <nav className="navbar navbar-expand-lg " style={{backgroundColor:"#fff"}}>
+        <div className="container p-2">
+          <Link className="navbar-brand" to="/">
             <img src="media/logo.svg" style={{width:"35%"}}/>
           </Link>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -17,35 +27,43 @@ function Navbar() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
             
-            <form class="d-flex" role="search">
+            <form className="d-flex" role="search">
 
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <Link class="nav-link active" aria-current="page" to={"/signup"}>
-                  Signup
-                </Link>
-              </li>
-              <li class="nav-item">
-                <Link class="nav-link" to={"/about"}>
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              {!isLoggedIn ? (
+                <li className="nav-item">
+                  <Link className="nav-link active" aria-current="page" to={"/signup"}>
+                    Signup
+                  </Link>
+                </li>
+              ) : (
+                <li className="nav-item">
+                  <button className="nav-link active" style={{background: "none", border: "none"}} onClick={handleLogout}>
+                    Logout
+                  </button>
+                </li>
+              )}
+              <li className="nav-item">
+                <Link className="nav-link" to={"/about"}>
                   About
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link active" aria-current="page" to={"/product"}>
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to={"/product"}>
                   Product
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link active" aria-current="page" to={"/pricing"}>
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to={"/pricing"}>
                   Pricing
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link active" aria-current="page" to={"/support"}>
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to={"/support"}>
                   Support
                 </Link>
               </li>
